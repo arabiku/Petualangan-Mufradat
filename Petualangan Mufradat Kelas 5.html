@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Petualangan Mufradat – Kelas 5</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Noto+Naskh+Arabic:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff4d6;--card:#ffffff;--ink:#2b2a4c;--soft:#6b6a8a;--line:#e8dcb5;--ok:#1f9d55;--bad:#e0453a;--c1:#ff8a3d;--c2:#2bb3a3;--c3:#8b5cf6;--c4:#ef5da8;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1b3a;--card:#2a2850;--ink:#fff4d6;--soft:#b9b6e0;--line:#3d3b70}}
+:root[data-theme="dark"]{--bg:#1d1b3a;--card:#2a2850;--ink:#fff4d6;--soft:#b9b6e0;--line:#3d3b70}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Baloo 2','Trebuchet MS',sans-serif;font-size:17px;min-height:100vh}
+.ar{font-family:'Noto Naskh Arabic','Traditional Arabic',serif;direction:rtl;font-weight:700}
+#app{max-width:720px;margin:0 auto;padding:14px 14px 40px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.pill{background:var(--card);border:2px solid var(--line);border-radius:99px;padding:4px 14px;font-weight:700}
+button{font:inherit;cursor:pointer;border:0;color:inherit}
+button:focus-visible{outline:3px solid var(--c3);outline-offset:2px}
+.btn{background:var(--c1);color:#fff;border-radius:16px;padding:10px 20px;font-weight:800;box-shadow:0 4px 0 rgba(0,0,0,.2)}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.2)}
+.btn.alt{background:var(--card);color:var(--ink);border:2px solid var(--line)}
+h1{font-size:2.1rem;line-height:1.1;margin:6px 0}
+h2{margin:6px 0 12px}
+.hero{text-align:center;padding:10px 0 6px}
+.hero .ar{font-size:2.4rem;color:var(--c1)}
+.path{display:flex;flex-direction:column;gap:14px;margin-top:14px}
+.node{display:flex;align-items:center;gap:14px;background:var(--card);border:3px solid var(--line);border-radius:26px;padding:14px 16px;text-align:left;width:100%}
+.node:nth-child(even){margin-left:clamp(0px,6vw,48px)}
+.node:nth-child(odd){margin-right:clamp(0px,6vw,48px)}
+.node .em{font-size:2.6rem;width:70px;height:70px;border-radius:50%;display:grid;place-items:center;color:#fff}
+.node .nm{font-weight:800;font-size:1.2rem}
+.node .sub{color:var(--soft);font-size:.9rem}
+.node .st{margin-left:auto;font-size:1.3rem;letter-spacing:2px;white-space:nowrap}
+.node.locked{opacity:.55}
+.menu{display:grid;gap:12px;margin-top:12px}
+.menu .btn{display:flex;align-items:center;gap:12px;text-align:left;font-size:1.1rem;padding:16px}
+.menu .btn small{display:block;font-weight:500;opacity:.9}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.flip{perspective:700px;height:190px;background:none;padding:0}
+.flip>div{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on>div{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:3px solid var(--line);background:var(--card);padding:8px}
+.face.back{transform:rotateY(180deg);color:#fff;border-color:transparent}
+.face .big{font-size:2.6rem;line-height:1.3}
+.face .emo{font-size:3rem}
+.hint{color:var(--soft);font-size:.9rem;margin:2px 0 12px}
+.mem{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mc{aspect-ratio:1/1.05;border-radius:18px;background:var(--c3);color:#fff;font-size:2rem;display:grid;place-items:center;border:3px solid transparent;padding:4px;text-align:center;line-height:1.1}
+.mc.up{background:var(--card);color:var(--ink);border-color:var(--line)}
+.mc.ok{background:#c9f2d6;color:#124a2a;border-color:var(--ok)}
+.mc .t{font-size:1rem;display:block}
+.mc .ar{font-size:1.9rem}
+.bar{height:12px;background:var(--line);border-radius:9px;overflow:hidden;margin:8px 0 16px}
+.bar i{display:block;height:100%;background:var(--c2);transition:width .3s}
+.q{background:var(--card);border:3px solid var(--line);border-radius:26px;padding:20px;text-align:center}
+.q .ar{font-size:3.4rem;line-height:1.4}
+.q .em{font-size:4rem}
+.opts{display:grid;gap:10px;margin-top:14px}
+.opt{background:var(--card);border:3px solid var(--line);border-radius:18px;padding:12px;font-weight:700;font-size:1.15rem}
+.opt.ar{font-size:1.9rem}
+.opt.good{background:#c9f2d6;color:#124a2a;border-color:var(--ok)}
+.opt.wrong{background:#ffd6d2;color:#6b1610;border-color:var(--bad)}
+.fb{min-height:30px;font-weight:800;text-align:center;margin-top:10px}
+.res{text-align:center}
+.res .stars{font-size:3.2rem;letter-spacing:6px}
+.shake{animation:sh .35s}@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.pop{animation:pp .4s}@keyframes pp{50%{transform:scale(1.08)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const THEMES=[
+{id:"sekolah",nm:"Pulau Madrasah",ar:"الْمَدْرَسَة",em:"🏫",col:"#ff8a3d",w:[["كِتَاب","kitaab","Buku","📖"],["قَلَم","qalam","Pena","✏️"],["مِسْطَرَة","mistharah","Penggaris","📏"],["حَقِيبَة","haqiibah","Tas","🎒"],["كُرْسِي","kursiyy","Kursi","🪑"],["سَاعَة","saa'ah","Jam","⏰"],["مُدَرِّس","mudarris","Guru","🧑‍🏫"],["طَالِب","thaalib","Murid","🧑‍🎓"]]},
+{id:"keluarga",nm:"Lembah Keluarga",ar:"الْأُسْرَة",em:"👨‍👩‍👧",col:"#2bb3a3",w:[["أَب","ab","Ayah","👨"],["أُمّ","umm","Ibu","👩"],["أَخ","akh","Saudara laki-laki","👦"],["أُخْت","ukht","Saudara perempuan","👧"],["جَدّ","jadd","Kakek","👴"],["جَدَّة","jaddah","Nenek","👵"],["عَمّ","amm","Paman","🧔"],["بَيْت","bayt","Rumah","🏠"]]},
+{id:"hewan",nm:"Hutan Hewan",ar:"الْحَيَوَانَات",em:"🦁",col:"#8b5cf6",w:[["قِطَّة","qitthah","Kucing","🐱"],["كَلْب","kalb","Anjing","🐶"],["عُصْفُور","ushfuur","Burung","🐦"],["سَمَكَة","samakah","Ikan","🐟"],["فِيل","fiil","Gajah","🐘"],["أَسَد","asad","Singa","🦁"],["حِصَان","hishaan","Kuda","🐴"],["بَقَرَة","baqarah","Sapi","🐄"]]},
+{id:"makanan",nm:"Kota Makanan",ar:"الطَّعَام",em:"🍎",col:"#ef5da8",w:[["خُبْز","khubz","Roti","🍞"],["حَلِيب","haliib","Susu","🥛"],["تُفَّاح","tuffaah","Apel","🍎"],["مَوْز","mawz","Pisang","🍌"],["مَاء","maa'","Air","💧"],["بَيْضَة","baydhah","Telur","🥚"],["أَرُزّ","aruzz","Nasi","🍚"],["دَجَاج","dajaaj","Ayam","🍗"]]}
+];
+let S={xp:0,st:{}};
+try{const x=localStorage.getItem("mufradat5");if(x)S=JSON.parse(x)}catch(e){}
+const save=()=>{try{localStorage.setItem("mufradat5",JSON.stringify(S))}catch(e){}};
+const $=document.getElementById("app");
+const sh=a=>[...a].sort(()=>Math.random()-.5);
+const stars=n=>"⭐".repeat(n)+"☆".repeat(3-n);
+const tstars=id=>{const s=S.st[id]||{};return (s.l?1:0)+Math.max(s.m||0,0)+Math.max(s.q||0,0)};
+const say=t=>{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="ar-SA";u.rate=.8;speechSynthesis.speak(u)}catch(e){}};
+const top=(back)=>`<div class="top">${back?`<button class="btn alt" onclick="${back}">← Kembali</button>`:`<span></span>`}<span class="pill">✨ ${S.xp} XP</span></div>`;
+function setStar(id,k,n){S.st[id]=S.st[id]||{};if((S.st[id][k]||0)<n){S.xp+=(n-(S.st[id][k]||0))*20;S.st[id][k]=n}save()}
+
+function home(){
+ const total=THEMES.reduce((a,t)=>a+Math.min(tstars(t.id),7),0);
+ $.innerHTML=top()+`<div class="hero"><div class="ar">مُفْرَدَات</div><h1>Petualangan Mufradat</h1><div class="hint">Kelas 5 SD · Pilih pulau, kumpulkan bintang, jadi Pendekar Bahasa Arab!</div></div>
+ <div class="path">${THEMES.map((t,i)=>`<button class="node" onclick="theme(${i})"><span class="em" style="background:${t.col}">${t.em}</span><span><span class="nm">${t.nm}</span><br><span class="sub ar" style="font-size:1.2rem">${t.ar}</span></span><span class="st">${tstars(t.id)}/7 ⭐</span></button>`).join("")}</div>
+ <p class="hint" style="text-align:center;margin-top:18px">Total bintang: ${total}/28 ${total>=28?"🏆 Kamu Pendekar Mufradat!":total>=14?"🥈 Hebat, terus lanjut!":"🌱 Ayo mulai petualangan!"}</p>`;
+}
+function theme(i){
+ const t=THEMES[i],s=S.st[t.id]||{};
+ $.innerHTML=top("home()")+`<h2>${t.em} ${t.nm}</h2>
+ <div class="menu">
+ <button class="btn" style="background:${t.col}" onclick="learn(${i})"><span style="font-size:2rem">🃏</span><span>Belajar Kartu<small>Ketuk kartu, dengar bunyinya ${s.l?"✅":""}</small></span></button>
+ <button class="btn" style="background:var(--c3)" onclick="memory(${i})"><span style="font-size:2rem">🧩</span><span>Game Pasangan<small>Cocokkan Arab dengan gambarnya ${stars(s.m||0)}</small></span></button>
+ <button class="btn" style="background:var(--c2)" onclick="quiz(${i})"><span style="font-size:2rem">🎯</span><span>Kuis Kilat<small>8 soal, jawab tanpa salah! ${stars(s.q||0)}</small></span></button>
+ </div>`;
+}
+function learn(i){
+ const t=THEMES[i];
+ $.innerHTML=top(`theme(${i})`)+`<h2>🃏 Belajar: ${t.nm}</h2><div class="hint">Ketuk kartu untuk melihat arti. Tombol 🔊 untuk mendengar.</div>
+ <div class="grid">${t.w.map((w,k)=>`<button class="flip" id="f${k}" onclick="flipc(${k},'${w[0]}',${i})"><div><div class="face"><span class="emo">${w[3]}</span><span class="big ar">${w[0]}</span></div><div class="face back" style="background:${t.col}"><b style="font-size:1.5rem">${w[2]}</b><span>${w[1]}</span><span>🔊</span></div></div></button>`).join("")}</div>
+ <div style="text-align:center;margin-top:18px"><button class="btn" onclick="doneLearn(${i})">Selesai belajar ✔</button></div>`;
+ window.seen=new Set();
+}
+function flipc(k,ar){document.getElementById("f"+k).classList.toggle("on");seen.add(k);say(ar)}
+function doneLearn(i){
+ const t=THEMES[i];
+ if(seen.size<t.w.length){alert("Buka semua kartu dulu ya! Tersisa "+(t.w.length-seen.size)+" kartu.");return}
+ S.st[t.id]=S.st[t.id]||{};if(!S.st[t.id].l){S.st[t.id].l=1;S.xp+=20;save()}
+ theme(i);
+}
+function memory(i){
+ const t=THEMES[i],w=sh(t.w).slice(0,6);
+ let cards=sh([...w.map((x,k)=>({k,a:1,x})),...w.map((x,k)=>({k,a:0,x}))]),open=[],lock=false,moves=0,found=0;
+ const draw=()=>{$.innerHTML=top(`theme(${i})`)+`<h2>🧩 Game Pasangan</h2><div class="hint">Langkah: <b>${moves}</b> · Pasangan: <b>${found}/6</b> · Cocokkan tulisan Arab dengan gambar + arti</div><div class="mem">${cards.map((c,n)=>`<button class="mc ${c.up||c.ok?"up":""} ${c.ok?"ok":""}" onclick="window.mflip(${n})" aria-label="kartu">${c.up||c.ok?(c.a?`<span class="ar">${c.x[0]}</span>`:`<span>${c.x[3]}<span class="t">${c.x[2]}</span></span>`):"❓"}</button>`).join("")}</div>`};
+ window.mflip=n=>{
+  const c=cards[n];if(lock||c.up||c.ok)return;c.up=1;open.push(n);if(c.a)say(c.x[0]);draw();
+  if(open.length==2){moves++;lock=true;const[a,b]=open.map(z=>cards[z]);
+   setTimeout(()=>{ if(a.k==b.k&&a.a!=b.a){a.ok=b.ok=1;found++}a.up=b.up=0;open=[];lock=false;draw();
+    if(found==6){const s=moves<=9?3:moves<=14?2:1;setStar(t.id,"m",s);
+     $.innerHTML=top(`theme(${i})`)+`<div class="res q"><h1>Hebat! 🎉</h1><div class="stars">${stars(s)}</div><p>Selesai dalam <b>${moves}</b> langkah.</p><button class="btn" onclick="memory(${i})">Main lagi</button> <button class="btn alt" onclick="theme(${i})">Menu pulau</button></div>`}
+   },700)}
+ };
+ draw();
+}
+function quiz(i){
+ const t=THEMES[i],qs=sh(t.w).map((w,n)=>({w,type:n%2}));
+ let n=0,score=0,streak=0,done=false;
+ const show=()=>{
+  const q=qs[n],w=q.w,others=sh(t.w.filter(x=>x!=w)).slice(0,3),opts=sh([w,...others]);
+  $.innerHTML=top(`theme(${i})`)+`<div class="bar"><i style="width:${n/8*100}%"></i></div><div class="hint">Soal ${n+1}/8 · Benar: ${score} ${streak>=2?"· 🔥 Beruntun "+streak:""}</div>
+  <div class="q">${q.type?`<div class="em">${w[3]}</div><div class="hint">Apa bahasa Arabnya <b>${w[2]}</b>?</div>`:`<div class="ar">${w[0]}</div><button class="btn alt" onclick="say('${w[0]}')">🔊 Dengar</button><div class="hint">Apa artinya?</div>`}</div>
+  <div class="opts">${opts.map((o,k)=>`<button class="opt ${q.type?"ar":""}" data-c="${o==w?1:0}" onclick="window.ans(this)">${q.type?o[0]:o[2]}</button>`).join("")}</div><div class="fb" id="fb"></div>`;
+  done=false;
+ };
+ window.ans=b=>{
+  if(done)return;done=true;const ok=b.dataset.c=="1";
+  document.querySelectorAll(".opt").forEach(o=>{if(o.dataset.c=="1")o.classList.add("good")});
+  if(ok){score++;streak++;S.xp+=10;b.classList.add("pop");say(qs[n].w[0])}else{streak=0;b.classList.add("wrong","shake")}
+  document.getElementById("fb").innerHTML=(ok?"🎉 Benar! +10 XP":"😅 Hampir! Jawaban benar ditandai hijau")+`<br><button class="btn" style="margin-top:10px" onclick="window.nxt()">${n==7?"Lihat hasil":"Lanjut"}</button>`;
+ };
+ window.nxt=()=>{n++;if(n<8)show();else{
+  const s=score>=8?3:score>=6?2:score>=4?1:0;if(s)setStar(t.id,"q",s);else save();
+  $.innerHTML=top(`theme(${i})`)+`<div class="res q"><h1>${s==3?"Luar biasa! 🏆":s?"Bagus! 👏":"Ayo coba lagi 💪"}</h1><div class="stars">${stars(s)}</div><p>Skor: <b>${score}/8</b></p><button class="btn" onclick="quiz(${i})">Ulangi kuis</button> <button class="btn alt" onclick="learn(${i})">Belajar lagi</button></div>`}};
+ show();
+}
+home();
+</script>
+</body>
+</html>
